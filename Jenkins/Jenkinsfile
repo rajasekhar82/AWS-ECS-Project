@@ -7,7 +7,7 @@ pipeline {
         AWS_ACCOUNT_ID     = '657001761946'
         IMAGE_TAG          = "1.0.${BUILD_NUMBER}"
         ECR_URI            = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/ecs-test-repo"
-        TF_DIR             = 'terraform'
+        TF_DIR             = 'ecs-terraform'
     }
 
     stages {
@@ -43,14 +43,14 @@ pipeline {
 
         stage('Build, Tag & Push app Docker Image to AWS ECR') {
             steps {
-                dir('applicationcode') {
+                dir('diwali-wishes') {
                     sh """
                         echo "Building Docker image..."
-                        docker build -t app:latest .
+                        docker build -t diwali-wishes:latest .
 
                         echo "Tagging image with ${IMAGE_TAG} and latest..."
-                        docker tag app:latest ${ECR_URI}:${IMAGE_TAG}
-                        docker tag app:latest ${ECR_URI}:latest
+                        docker tag diwali-wishes:latest ${ECR_URI}:${IMAGE_TAG}
+                        docker tag diwali-wishes:latest ${ECR_URI}:latest
 
                         echo "Pushing images to ECR..."
                         docker push ${ECR_URI}:${IMAGE_TAG}
