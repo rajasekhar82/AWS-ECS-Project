@@ -98,3 +98,66 @@ pipeline {
     }
 }
 ```
+
+**- Destroy pipeline:**
+
+```
+pipeline {
+    agent any
+
+    environment {
+        AWS_DEFAULT_REGION = 'us-east-1'
+        TF_DIR             = 'ecs-terraform'
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github-cred',
+                    url: 'https://github.com/vijaygiduthuri/AWS-ECS-Project.git'
+            }
+        }
+
+        stage('Authenticate with AWS') {
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-id']]) {
+                    sh '''
+                        echo "Authenticating with AWS..."
+                        export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+                        aws sts get-caller-identity
+                    '''
+                }
+            }
+        }
+
+        stage('Destroy Infrastructure') {
+            steps {
+                dir("${env.TF_DIR}") {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-id']]) {
+                        sh '''
+                            export AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
+                            terraform init
+                            terraform destroy -auto-approve
+                        '''
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Cleaning up workspace after destroy..."
+            cleanWs()
+        }
+    }
+}
+
+```
