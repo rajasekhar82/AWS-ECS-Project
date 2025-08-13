@@ -1,4 +1,4 @@
-**- Install Jenkins:**
+**- Install `Jenkins`:**
 
 ```
 #!/bin/bash
@@ -62,7 +62,7 @@ echo "✅ Done!"
   - Terraform
   - pipeline stage view
 
-- Install Terraform, Trivy, awscli:
+- Install `Terraform, Trivy, awscli`:
 
 ```
 # Install Trivy
@@ -90,7 +90,7 @@ unzip awscliv2.zip
 sudo ./aws/install
 ```
 
-- Install Docker:
+- Install `Docker`:
 
 ```
 apt install docker.io -y
