@@ -38,7 +38,7 @@ module "ecs" {
   cpu                 = "256"
   memory              = "512"
   container_name      = "my-app"
-  container_image     = "nginx:latest"
+  container_image     = var.container_image
   container_port      = 80
   service_name        = "my-ecs-service"
   desired_count       = 1
@@ -46,4 +46,5 @@ module "ecs" {
   security_group_ids  = [module.vpc.alb_sg_id]
   target_group_arn    = module.alb.target_group_arn
   alb_listener_arn    = module.alb.listener_arn
+
 }
