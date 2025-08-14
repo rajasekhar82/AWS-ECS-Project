@@ -59,6 +59,11 @@ pipeline {
                 }
             }
         }
+        stage('Scan Latest Diwali Docker Image using Trivy') {
+            steps {
+                sh "trivy image ${ECR_URI}:${IMAGE_TAG}"
+            }
+        }
 
         stage('Provision ECS') {
             steps {
