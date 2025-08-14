@@ -21,7 +21,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github-cred',
-                    url: 'https://github.com/vijaygiduthuri/ECS.git'
+                    url: 'https://github.com/vijaygiduthuri/AWS-ECS-Project.git'
             }
         }
 
