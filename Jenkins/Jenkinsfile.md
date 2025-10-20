@@ -3,8 +3,8 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
-        AWS_ACCOUNT_ID     = '657001761946'
+        AWS_DEFAULT_REGION = 'ap-south-1'
+        AWS_ACCOUNT_ID     = '302007785435'
         IMAGE_TAG          = "1.0.${BUILD_NUMBER}"
         ECR_URI            = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/ecs-test-repo"
         TF_DIR             = 'ecs-terraform'
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github-cred',
-                    url: 'https://github.com/vijaygiduthuri/AWS-ECS-Project.git'
+                    url: 'https://github.com/rajasekhar82/AWS-ECS-Project.git'
             }
         }
 
@@ -111,7 +111,7 @@ pipeline {
     agent any
 
     environment {
-        AWS_DEFAULT_REGION = 'us-east-1'
+        AWS_DEFAULT_REGION = 'ap-south-1'
         TF_DIR             = 'ecs-terraform'
     }
 
@@ -126,7 +126,7 @@ pipeline {
             steps {
                 git branch: 'main',
                     credentialsId: 'github-cred',
-                    url: 'https://github.com/vijaygiduthuri/AWS-ECS-Project.git'
+                    url: 'https://github.com/rajasekhar82/AWS-ECS-Project.git'
             }
         }
 

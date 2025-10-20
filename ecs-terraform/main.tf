@@ -1,12 +1,12 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "ap-south-1"
 }
 
 terraform {
   backend "s3" {
-    bucket  = "ecs-terraform-bucker0001" # create s3 bucket to store statefile
+    bucket  = "ecs-terraform-bucker00001" # create s3 bucket to store statefile
     key     = "dev/terraform.tfstate"
-    region  = "us-east-1"
+    region  = "ap-south-1"
     encrypt = false
   }
 }
@@ -15,7 +15,7 @@ module "vpc" {
   source              = "./modules/vpc_module"
   vpc_cidr            = "10.0.0.0/16"
   public_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24"]
-  azs                 = ["us-east-1a", "us-east-1b"]
+  azs                 = ["ap-south-1a", "ap-south-1b"]
   tags                = { Environment = "dev" }
 }
 
